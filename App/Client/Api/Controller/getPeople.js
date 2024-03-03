@@ -30,6 +30,30 @@ function getCharacters(pageNumber) {
                     add_image.type = "file";
                     add_image.id = "file";
                     transfer_data.innerHTML = '<b>transferData</b>';
+                    characterDiv.addEventListener('click', function(event) {
+                        if (event.target.tagName !== 'BUTTON' && event.target.tagName !== 'INPUT' && event.target.tagName !== 'B') {
+                            const server_info = document.getElementById("server-info");
+                            fetch(`http://localhost:3000/persona/${character.name}`).then(response => {
+                                if(!response.ok){
+                                    server_info.innerHTML = "<h2>Info Server</h2>";
+                                    server_info.innerHTML += "No se ha encontra informacion del personaje";
+                                }
+                                return response.json();
+                            })
+                            .then(character => {
+                                
+                                server_info.innerHTML = "<h2>Info Server</h2>";
+                                server_info.innerHTML += `<br> Name: ${character.name}`; 
+                                server_info.innerHTML += `<br> Height: ${character.height}`;
+                                server_info.innerHTML += `<br> Hair color: ${character.hair_color}`;
+                                server_info.innerHTML += `<br> Skin Color: ${character.skin_color}`;
+                                server_info.innerHTML += `<br> Eye Color: ${character.eye_color}`;
+                                server_info.innerHTML += `<br> Birth Year: ${character.birth_year}`;
+                                server_info.innerHTML += `<br> Gender: ${character.gender}`;
+                            })
+                            .catch(error => console.error(error));
+                        }
+                    });
                     transfer_data.addEventListener('click', function() {
                         const characterInfo = {
                             name: character.name,

@@ -52,6 +52,21 @@ app.post('/persona', (req, res) => {
     });
 });
 
+app.get('/persona/:name', (req, res) => {
+    const characterName = req.params.name.replace(/\s/g, '_').toLowerCase();
+    const filePath = path.join(__dirname, 'data', `${characterName}.json`);
+
+    fs.readFile(filePath, (err, data) => {
+        if(err){
+            console.log(err);
+            res.status(404).send('No se ha encontrado informacion del personaje');
+            return;
+        }
+        const character = JSON.parse(data);
+        res.status(200).json(character);
+    })
+});
+
 app.listen(PORT, () => {
     console.log(`Servidor escuchando en el puerto ${PORT}`);
-})
+});
