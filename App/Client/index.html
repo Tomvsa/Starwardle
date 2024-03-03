@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StarWardled</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="./Api/Controller/getPeople.js" defer></script>
+    <style>
+        #results {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .character-card {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px;
+            flex: 0 0 calc(33.33% - 20px);
+            max-width: calc(33.33% - 20px);
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="bg-dark text-white text-center py-4">
+        <h1>STARWADLE</h1>
+    </header>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-12">
+                <button id="getPeople" class="btn btn-primary">Get People</button>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-12">
+                <div id="results"></div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-12">
+                <button id="prevPage" class="btn btn-secondary mr-2">Anterior</button>
+                <span id="currentPage">Página 1</span>
+                <span id="totalPages"></span>
+                <button id="nextPage" class="btn btn-secondary ml-2">Siguiente</button>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-12">
+                <button id="startGame" class="btn btn-primary">Start StarWardled</button>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-8">
+                <input type="text" name="check" class="form-control">
+            </div>
+            <div class="col-4">
+                <button class="btn btn-primary">Check</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
