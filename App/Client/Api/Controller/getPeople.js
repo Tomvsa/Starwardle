@@ -30,7 +30,36 @@ function getCharacters(pageNumber) {
                     transfer_data.innerHTML = '<b>transferData</b>';
                     add_image.innerHTML = '<b>add image</b>';
                     transfer_data.addEventListener('click', function() {
-                        console.log("¡Hola!");
+                        const characterInfo = {
+                            name: character.name,
+                            height: character.height,
+                            hair_color: character.hair_color,
+                            skin_color: character.skin_color,
+                            eye_color: character.eye_color,
+                            birth_year: character.birth_year,
+                            gender: character.gender
+                        };
+                    
+                        fetch('http://localhost:3000/persona', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(characterInfo)
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Error al guardar la información del personaje.');
+                            }
+                            console.log('Información del personaje guardada correctamente.');
+                            return response.text();
+                        })
+                        .then(data => {
+                            console.log(data);
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
                     });
                     div.appendChild(characterDiv);
                     characterDiv.appendChild(transfer_data);
