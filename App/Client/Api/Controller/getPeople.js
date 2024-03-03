@@ -41,45 +41,36 @@ function getCharacters(pageNumber) {
                             gender: character.gender
                         };
                     
-                        //Verifica si existe el archivo
-                        if(add_image.files.length > 0){
-                            const imageFile = add_image.files[0];
-                            const reader = new FileReader();
-                            reader.readAsDataURL(imageFile);
-                            reader.onload = function(event){
-                                characterInfo.image = event.target.result;
-                                console.log(characterInfo);
+                        // Verifica si se seleccionó una imagen
+                        if (add_image.files.length > 0) {
+                            const formData = new FormData();
+                            formData.append('characterInfo', JSON.stringify(characterInfo));
+                            formData.append('image', add_image.files[0]);
+
                     
-                                // Envía la solicitud fetch dentro del evento onload del FileReader
-                                fetch('http://localhost:3000/persona', {
-                                    method: 'POST',
-                                    headers: {
-                                        'Content-Type': 'application/json'
-                                    },
-                                    body: JSON.stringify(characterInfo)
-                                })
-                                .then(response => {
-                                    if (!response.ok) {
-                                        throw new Error('Error al guardar la información del personaje.');
-                                    }
-                                    console.log('Información del personaje guardada correctamente.');
-                                    return response.text();
-                                })
-                                .then(data => {
-                                    console.log(data);
-                                })
-                                .catch(error => {
-                                    console.error('Error:', error);
-                                });
-                            }
-                        } else {
-                            // Si no se selecciona ningún archivo de imagen, enviar solo la información del personaje sin imagen
                             fetch('http://localhost:3000/persona', {
                                 method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify(characterInfo)
+                                body: formData
+                            })
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('Error al guardar la información del personaje.');
+                                }
+                                console.log('Información del personaje guardada correctamente.');
+                                return response.text();
+                            })
+                            .then(data => {
+                                console.log(data);
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                            });
+                        } else {
+                            const formData = new FormData();
+                            formData.append('characterInfo', JSON.stringify(characterInfo));
+                            fetch('http://localhost:3000/persona', {
+                                method: 'POST',
+                                body: formData
                             })
                             .then(response => {
                                 if (!response.ok) {
