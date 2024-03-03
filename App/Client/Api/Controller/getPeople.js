@@ -5,7 +5,6 @@ const prevButton = document.getElementById("prevPage");
 const nextButton = document.getElementById("nextPage");
 const currentPageSpan = document.getElementById("currentPage");
 const totalPagesSpan = document.getElementById("totalPages");
-
 button.addEventListener('click', () => getCharacters(page));
 prevButton.addEventListener('click', () => changePage(-1));
 nextButton.addEventListener('click', () => changePage(1));
@@ -41,7 +40,6 @@ function getCharacters(pageNumber) {
                                 return response.json();
                             })
                             .then(character => {
-                                
                                 server_info.innerHTML = "<h2>Info Server</h2>";
                                 server_info.innerHTML += `<br> Name: ${character.name}`; 
                                 server_info.innerHTML += `<br> Height: ${character.height}`;
@@ -50,6 +48,7 @@ function getCharacters(pageNumber) {
                                 server_info.innerHTML += `<br> Eye Color: ${character.eye_color}`;
                                 server_info.innerHTML += `<br> Birth Year: ${character.birth_year}`;
                                 server_info.innerHTML += `<br> Gender: ${character.gender}`;
+                                server_info.innerHTML += `<br> <img width='100px' src='/AppStarwar/App/Server/images/${character.imageName}'>`;
                             })
                             .catch(error => console.error(error));
                         }

@@ -26,6 +26,7 @@ app.post('/persona', (req, res) => {
             const image = files['image'][0];
             const fileExtension = image.originalFilename.split('.')[1];
             const imageName = character.name.replace(/\s/g, '_').toLowerCase() + '.' + fileExtension;
+            character.imageName = imageName;
             const imagePath = path.join(__dirname, 'images', imageName); // Ruta donde guarda la imagen
             // Guarda la imagen
             fs.rename(image.filepath, imagePath, err => {
