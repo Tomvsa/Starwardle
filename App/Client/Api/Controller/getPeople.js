@@ -26,9 +26,10 @@ function getCharacters(pageNumber) {
                     characterDiv.classList.add('character-card');
                     characterDiv.innerHTML = `Name: ${character.name}, <br> Height: ${character.height}, <br> Hair Color: ${character.hair_color}, <br> Skin Color: ${character.skin_color}, <br> Eye Color: ${character.eye_color}, <br> Birth Year: ${character.birth_year}, <br> Gender: ${character.gender} <br>`;
                     const transfer_data = document.createElement('button');
-                    const add_image = document.createElement('button');
+                    const add_image = document.createElement('input');
+                    add_image.type = "file";
+                    add_image.id = "file";
                     transfer_data.innerHTML = '<b>transferData</b>';
-                    add_image.innerHTML = '<b>add image</b>';
                     transfer_data.addEventListener('click', function() {
                         const characterInfo = {
                             name: character.name,
@@ -40,26 +41,60 @@ function getCharacters(pageNumber) {
                             gender: character.gender
                         };
                     
-                        fetch('http://localhost:3000/persona', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify(characterInfo)
-                        })
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error('Error al guardar la información del personaje.');
+                        //Verifica si existe el archivo
+                        if(add_image.files.length > 0){
+                            const imageFile = add_image.files[0];
+                            const reader = new FileReader();
+                            reader.readAsDataURL(imageFile);
+                            reader.onload = function(event){
+                                characterInfo.image = event.target.result;
+                                console.log(characterInfo);
+                    
+                                // Envía la solicitud fetch dentro del evento onload del FileReader
+                                fetch('http://localhost:3000/persona', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify(characterInfo)
+                                })
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error('Error al guardar la información del personaje.');
+                                    }
+                                    console.log('Información del personaje guardada correctamente.');
+                                    return response.text();
+                                })
+                                .then(data => {
+                                    console.log(data);
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                });
                             }
-                            console.log('Información del personaje guardada correctamente.');
-                            return response.text();
-                        })
-                        .then(data => {
-                            console.log(data);
-                        })
-                        .catch(error => {
-                            console.error('Error:', error);
-                        });
+                        } else {
+                            // Si no se selecciona ningún archivo de imagen, enviar solo la información del personaje sin imagen
+                            fetch('http://localhost:3000/persona', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(characterInfo)
+                            })
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('Error al guardar la información del personaje.');
+                                }
+                                console.log('Información del personaje guardada correctamente.');
+                                return response.text();
+                            })
+                            .then(data => {
+                                console.log(data);
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                            });
+                        }
                     });
                     div.appendChild(characterDiv);
                     characterDiv.appendChild(transfer_data);
