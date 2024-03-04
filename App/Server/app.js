@@ -58,13 +58,45 @@ app.get('/persona/:name', (req, res) => {
     const filePath = path.join(__dirname, 'data', `${characterName}.json`);
 
     fs.readFile(filePath, (err, data) => {
-        if(err){
+        if (err) {
             console.log(err);
             res.status(404).send('No se ha encontrado informacion del personaje');
             return;
         }
         const character = JSON.parse(data);
         res.status(200).json(character);
+    })
+});
+
+app.get('/search', (req, res) => {
+    const searchTerm = req.query.term.toLocaleLowerCase();
+    const searchResults = [];
+    const dataDir = path.join(__dirname, 'data');
+
+    fs.readdir(dataDir, (err, files) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Error en leer los archivos');
+            return;
+        }
+        files.forEach(file => {
+            const filePath = path.join(dataDir, file);
+            fs.readFile(filePath, 'utf8', (err, data) => {
+                if (err) {
+                    console.error(err);
+                    res.status(500).send('Error en leer el archivo de datos');
+                    return;
+                }
+                const character = JSON.parse(data);
+                if (character.name.toLowerCase().includes(searchTerm)) {
+                    searchResults.push(character);
+                }
+                if (searchResults.length === files.length) {
+                    console.log(searchResults);
+                    res.json(searchResults);
+                }
+            });
+        })
     })
 });
 

@@ -29,31 +29,34 @@ function getCharacters(pageNumber) {
                     add_image.type = "file";
                     add_image.id = "file";
                     transfer_data.innerHTML = '<b>transferData</b>';
-                    characterDiv.addEventListener('click', function(event) {
+                    characterDiv.addEventListener('click', function (event) {
                         if (event.target.tagName !== 'BUTTON' && event.target.tagName !== 'INPUT' && event.target.tagName !== 'B') {
                             const server_info = document.getElementById("server-info");
                             fetch(`http://localhost:3000/persona/${character.name}`).then(response => {
-                                if(!response.ok){
+                                if (!response.ok) {
                                     server_info.innerHTML = "<h2>Info Server</h2>";
                                     server_info.innerHTML += "No se ha encontra informacion del personaje";
                                 }
                                 return response.json();
                             })
-                            .then(character => {
-                                server_info.innerHTML = "<h2>Info Server</h2>";
-                                server_info.innerHTML += `<br> Name: ${character.name}`; 
-                                server_info.innerHTML += `<br> Height: ${character.height}`;
-                                server_info.innerHTML += `<br> Hair color: ${character.hair_color}`;
-                                server_info.innerHTML += `<br> Skin Color: ${character.skin_color}`;
-                                server_info.innerHTML += `<br> Eye Color: ${character.eye_color}`;
-                                server_info.innerHTML += `<br> Birth Year: ${character.birth_year}`;
-                                server_info.innerHTML += `<br> Gender: ${character.gender}`;
-                                server_info.innerHTML += `<br> <img width='100px' src='/AppStarwar/App/Server/images/${character.imageName}'>`;
-                            })
-                            .catch(error => console.error(error));
+                                .then(character => {
+                                    server_info.innerHTML = "<h2>Info Server</h2>";
+                                    server_info.innerHTML += `<br> Name: ${character.name}`;
+                                    server_info.innerHTML += `<br> Height: ${character.height}`;
+                                    server_info.innerHTML += `<br> Hair color: ${character.hair_color}`;
+                                    server_info.innerHTML += `<br> Skin Color: ${character.skin_color}`;
+                                    server_info.innerHTML += `<br> Eye Color: ${character.eye_color}`;
+                                    server_info.innerHTML += `<br> Birth Year: ${character.birth_year}`;
+                                    server_info.innerHTML += `<br> Gender: ${character.gender}`;
+                                    if (character.imageName) {
+                                        server_info.innerHTML += `<br> <img width='100px' src='/AppStarwar/App/Server/images/${character.imageName}'>`;
+                                    }
+
+                                })
+                                .catch(error => console.error(error));
                         }
                     });
-                    transfer_data.addEventListener('click', function() {
+                    transfer_data.addEventListener('click', function () {
                         const characterInfo = {
                             name: character.name,
                             height: character.height,
@@ -63,31 +66,31 @@ function getCharacters(pageNumber) {
                             birth_year: character.birth_year,
                             gender: character.gender
                         };
-                    
+
                         // Verifica si se seleccionó una imagen
                         if (add_image.files.length > 0) {
                             const formData = new FormData();
                             formData.append('characterInfo', JSON.stringify(characterInfo));
                             formData.append('image', add_image.files[0]);
 
-                    
+
                             fetch('http://localhost:3000/persona', {
                                 method: 'POST',
                                 body: formData
                             })
-                            .then(response => {
-                                if (!response.ok) {
-                                    throw new Error('Error al guardar la información del personaje.');
-                                }
-                                console.log('Información del personaje guardada correctamente.');
-                                return response.text();
-                            })
-                            .then(data => {
-                                console.log(data);
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                            });
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error('Error al guardar la información del personaje.');
+                                    }
+                                    console.log('Información del personaje guardada correctamente.');
+                                    return response.text();
+                                })
+                                .then(data => {
+                                    console.log(data);
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                });
                         } else {
                             const formData = new FormData();
                             formData.append('characterInfo', JSON.stringify(characterInfo));
@@ -95,25 +98,25 @@ function getCharacters(pageNumber) {
                                 method: 'POST',
                                 body: formData
                             })
-                            .then(response => {
-                                if (!response.ok) {
-                                    throw new Error('Error al guardar la información del personaje.');
-                                }
-                                console.log('Información del personaje guardada correctamente.');
-                                return response.text();
-                            })
-                            .then(data => {
-                                console.log(data);
-                            })
-                            .catch(error => {
-                                console.error('Error:', error);
-                            });
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error('Error al guardar la información del personaje.');
+                                    }
+                                    console.log('Información del personaje guardada correctamente.');
+                                    return response.text();
+                                })
+                                .then(data => {
+                                    console.log(data);
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                });
                         }
                     });
                     div.appendChild(characterDiv);
                     characterDiv.appendChild(transfer_data);
                     characterDiv.appendChild(add_image);
-                    
+
                 }
                 totalPages = Math.ceil(response.count / 10);
                 updatePagination();
