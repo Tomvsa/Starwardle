@@ -100,6 +100,29 @@ app.get('/search', (req, res) => {
     })
 });
 
+app.get('/random', (req, res) => {
+    const dataDir = path.join(__dirname, 'data');
+    fs.readdir(dataDir, (err, files) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Error en leer los archivos');
+            return;
+        }
+        const randomFileName = files[Math.floor(Math.random() * files.length)]; // Escoge un nombre de archivo aleatorio
+        const randomFilePath = path.join(dataDir, randomFileName); // Ruta completa del archivo aleatorio
+        fs.readFile(randomFilePath, (err, data) => {
+            if (err) {
+                console.error(err);
+                res.status(500).send('Error en leer el archivo del personaje');
+                return;
+            }
+            const character = JSON.parse(data); // Analiza el contenido del archivo JSON
+            res.json(character); // Devuelve el personaje aleatorio como JSON
+        });
+    });
+});
+
+
 app.listen(PORT, () => {
     console.log(`Servidor escuchando en el puerto ${PORT}`);
 });
