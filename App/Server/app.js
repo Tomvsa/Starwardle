@@ -76,31 +76,50 @@ app.get('/search', (req, res) => {
     fs.readdir(dataDir, (err, files) => {
         if (err) {
             console.error(err);
-            res.status(500).send('Error en leer los archivos');
-            return;
+            return res.status(500).send('Error en leer los archivos');
         }
-        files.forEach(file => {
+
+        // Leer archivos de forma asíncrona y paralela
+        const promises = files.map(file => {
             const filePath = path.join(dataDir, file);
-            fs.readFile(filePath, 'utf8', (err, data) => {
-                if (err) {
-                    console.error(err);
-                    res.status(500).send('Error en leer el archivo de datos');
-                    return;
-                }
-                const character = JSON.parse(data);
-                if (character.name.toLowerCase().includes(searchTerm)) {
-                    searchResults.push(character);
-                }
-                if (searchResults.length === files.length) {
-                    console.log(searchResults);
-                    res.json(searchResults);
-                }
+            return new Promise((resolve, reject) => {
+                fs.readFile(filePath, 'utf8', (err, data) => {
+                    if (err) {
+                        console.error(err);
+                        reject(err);
+                    } else {
+                        const character = JSON.parse(data);
+                        if (character.name.toLowerCase().includes(searchTerm)) {
+                            searchResults.push(character);
+                        }
+                        resolve();
+                    }
+                });
             });
-        })
-    })
+        });
+
+        // Cuando todas las promesas se resuelven, enviar los resultados
+        Promise.all(promises)
+            .then(() => {
+                console.log(searchResults);
+                res.json(searchResults);
+            })
+            .catch(error => {
+                console.error(error);
+                res.status(500).send('Error en leer el archivo de datos');
+            });
+    });
 });
 
+
+let randomCharacter = null; // Objeto para almacenar el personaje aleatorio
+// Ruta para obtener un personaje aleatorio
 app.get('/random', (req, res) => {
+    if (randomCharacter) {
+        res.json(randomCharacter); // Devuelve el personaje aleatorio almacenado
+        return;
+    }
+
     const dataDir = path.join(__dirname, 'data');
     fs.readdir(dataDir, (err, files) => {
         if (err) {
@@ -116,12 +135,38 @@ app.get('/random', (req, res) => {
                 res.status(500).send('Error en leer el archivo del personaje');
                 return;
             }
-            const character = JSON.parse(data); // Analiza el contenido del archivo JSON
-            res.json(character); // Devuelve el personaje aleatorio como JSON
+            randomCharacter = JSON.parse(data); // Almacena el personaje aleatorio en el objeto
+            res.json(randomCharacter); // Devuelve el personaje aleatorio como JSON
         });
     });
 });
 
+
+// Ruta para comparar el personaje aleatorio y el proporcionado en el input
+app.get('/compare/:name', (req, res) => {
+    const characterName = req.params.name.replace(/\s/g, '_').toLowerCase();
+    const filePath = path.join(__dirname, 'data', `${characterName}.json`);
+
+    fs.readFile(filePath, (err, data) => {
+        if (err) {
+            console.log(err);
+            res.status(404).send('No se ha encontrado informacion del personaje');
+            return;
+        }
+        const character = JSON.parse(data);
+        const comparisonResult = {
+            name: randomCharacter.name === character.name,
+            height: randomCharacter.height === character.height,
+            hair_color: randomCharacter.hair_color === character.hair_color,
+            skin_color: randomCharacter.skin_color === character.skin_color,
+            eye_color: randomCharacter.eye_color === character.eye_color,
+            birth_year: randomCharacter.birth_year === character.birth_year,
+            gender: randomCharacter.gender === character.gender
+        };
+
+        res.json(comparisonResult);
+    })
+});
 
 app.listen(PORT, () => {
     console.log(`Servidor escuchando en el puerto ${PORT}`);
