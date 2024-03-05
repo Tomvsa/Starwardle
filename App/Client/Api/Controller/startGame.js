@@ -34,7 +34,7 @@ function startGame(){
                 li.innerHTML = `${character.name}`;
                 li.style.cursor = "pointer";
                 li.addEventListener('mouseover', function(){
-                    li.style.backgroundColor = "#f8ffd7";
+                    li.style.backgroundColor = "rgba(199, 191, 191, 0.459)";
                 });
                 li.addEventListener('mouseout', function() {
                     li.style.backgroundColor = '';
