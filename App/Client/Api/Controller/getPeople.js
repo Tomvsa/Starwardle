@@ -32,28 +32,30 @@ function getCharacters(pageNumber) {
                     characterDiv.addEventListener('click', function (event) {
                         if (event.target.tagName !== 'BUTTON' && event.target.tagName !== 'INPUT' && event.target.tagName !== 'B') {
                             const server_info = document.getElementById("server-info");
+                            const miModal = new bootstrap.Modal(document.getElementById('exampleModal'))
+                            const modalBody = document.getElementById('modalBody');
                             fetch(`http://localhost:3000/persona/${character.name}`).then(response => {
-                                if (!response.ok) {
-                                    server_info.innerHTML = "<h2>Info Server</h2>";
-                                    server_info.innerHTML += "No se ha encontra informacion del personaje";
+                                if (!response.ok) {                 
+                                    modalBody.innerHTML = "No hay información del personaje en el servidor";
+                                    miModal.show();
                                 }
                                 return response.json();
                             })
                                 .then(character => {
-                                    server_info.innerHTML = "<h2>Info Server</h2>";
-                                    server_info.innerHTML += `<br> Name: ${character.name}`;
-                                    server_info.innerHTML += `<br> Height: ${character.height}`;
-                                    server_info.innerHTML += `<br> Hair color: ${character.hair_color}`;
-                                    server_info.innerHTML += `<br> Skin Color: ${character.skin_color}`;
-                                    server_info.innerHTML += `<br> Eye Color: ${character.eye_color}`;
-                                    server_info.innerHTML += `<br> Birth Year: ${character.birth_year}`;
-                                    server_info.innerHTML += `<br> Gender: ${character.gender}`;
+                                    modalBody.innerHTML = `<br> Name: ${character.name}`;
+                                    modalBody.innerHTML += `<br> Height: ${character.height}`;
+                                    modalBody.innerHTML += `<br> Hair color: ${character.hair_color}`;
+                                    modalBody.innerHTML += `<br> Skin Color: ${character.skin_color}`;
+                                    modalBody.innerHTML += `<br> Eye Color: ${character.eye_color}`;
+                                    modalBody.innerHTML += `<br> Birth Year: ${character.birth_year}`;
+                                    modalBody.innerHTML += `<br> Gender: ${character.gender}`;
                                     if (character.imageName) {
-                                        server_info.innerHTML += `<br> <img width='100px' src='/AppStarwar/App/Server/images/${character.imageName}'>`;
+                                        modalBody.innerHTML += `<br> <img width='100px' src='/AppStarwar/App/Server/images/${character.imageName}'>`;
                                     }
+                                    miModal.show();
 
                                 })
-                                .catch(error => console.error(error));
+                                // .catch(error => console.error(error));
                         }
                     });
                     transfer_data.addEventListener('click', function () {
