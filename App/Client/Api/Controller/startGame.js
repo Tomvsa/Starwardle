@@ -11,12 +11,12 @@ function startGame(){
     .then(response => response.json())
     .then(character => {
         randomCharacter.innerHTML = "<b>Adivina el personaje</b>";
-        randomCharacter.innerHTML += `<br>${character.height}`;
-        randomCharacter.innerHTML += `<br>${character.hair_color}`;
-        randomCharacter.innerHTML += `<br>${character.skin_color}`;
-        randomCharacter.innerHTML += `<br>${character.eye_color}`;
-        randomCharacter.innerHTML += `<br>${character.birth_year}`;
-        randomCharacter.innerHTML += `<br>${character.gender}`;
+        randomCharacter.innerHTML += `<br>Height: ${character.height}`;
+        randomCharacter.innerHTML += `<br>Hair Color: ${character.hair_color}`;
+        randomCharacter.innerHTML += `<br>Skin Color: ${character.skin_color}`;
+        randomCharacter.innerHTML += `<br>Eye Color: ${character.eye_color}`;
+        randomCharacter.innerHTML += `<br>Birth Year: ${character.birth_year}`;
+        randomCharacter.innerHTML += `<br>Gender: ${character.gender}`;
     })
 
     inputGame.addEventListener('input',function(){
