@@ -31,7 +31,17 @@ function startGame(){
             divGame.innerHTML = "";
             characters.forEach(character => {
                 const li = document.createElement('li');
-                li.innerHTML = `${character.name}`
+                li.innerHTML = `${character.name}`;
+                li.style.cursor = "pointer";
+                li.addEventListener('mouseover', function(){
+                    li.style.backgroundColor = "#f8ffd7";
+                });
+                li.addEventListener('mouseout', function() {
+                    li.style.backgroundColor = '';
+                  });
+                li.addEventListener('click', function(){
+                    inputGame.value = `${character.name}`;
+                });
                 if(character.imageName){
                     li.innerHTML += ` <img width='30px' src='/AppStarwar/App/Server/images/${character.imageName}'>`
                 }
