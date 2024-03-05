@@ -115,10 +115,10 @@ app.get('/search', (req, res) => {
 let randomCharacter = null; // Objeto para almacenar el personaje aleatorio
 // Ruta para obtener un personaje aleatorio
 app.get('/random', (req, res) => {
-    if (randomCharacter) {
-        res.json(randomCharacter); // Devuelve el personaje aleatorio almacenado
-        return;
-    }
+    // if (randomCharacter) {
+    //     res.json(randomCharacter); // Devuelve el personaje aleatorio almacenado
+    //     return;
+    // }
 
     const dataDir = path.join(__dirname, 'data');
     fs.readdir(dataDir, (err, files) => {

@@ -6,6 +6,7 @@ const buttonCheck = document.getElementById('check');
 buttonStart.addEventListener('click', startGame);
 
 function startGame(){
+    buttonStart.style.visibility = 'hidden';
     fetch(`http://localhost:3000/random`)
     .then(response => response.json())
     .then(character => {
@@ -64,6 +65,15 @@ function startGame(){
             if (comparisonResult.height && comparisonResult.hair_color && comparisonResult.skin_color &&
                 comparisonResult.eye_color && comparisonResult.birth_year && comparisonResult.gender) {
                 divGame.innerHTML = "¡Felicidades! ¡Has ganado! 🤩🤩";
+                buttonCheck.style.visibility = 'hidden';
+                const buttonReset = document.createElement('button');
+                buttonReset.classList.add('btn', 'btn-warning');
+                buttonReset.textContent = "Reset";
+                const div = document.getElementsByClassName('col-4')[0];
+                buttonReset.addEventListener('click', function(){
+                window.location.reload()
+                });
+                div.appendChild(buttonReset);
             }
         })
         .catch(error => {
