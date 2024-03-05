@@ -50,7 +50,7 @@ function getCharacters(pageNumber) {
                                     modalBody.innerHTML += `<br> Birth Year: ${character.birth_year}`;
                                     modalBody.innerHTML += `<br> Gender: ${character.gender}`;
                                     if (character.imageName) {
-                                        modalBody.innerHTML += `<br> <img width='100px' src='/AppStarwar/App/Server/images/${character.imageName}'>`;
+                                        modalBody.innerHTML += `<br> <img width='100px' src='/App/Server/images/${character.imageName}'>`;
                                     }
                                     miModal.show();
 

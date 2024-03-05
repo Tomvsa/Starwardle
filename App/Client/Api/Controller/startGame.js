@@ -43,7 +43,7 @@ function startGame(){
                     inputGame.value = `${character.name}`;
                 });
                 if(character.imageName){
-                    li.innerHTML += ` <img width='30px' src='/AppStarwar/App/Server/images/${character.imageName}'>`
+                    li.innerHTML += ` <img width='30px' src='/App/Server/images/${character.imageName}'>`
                 }
                 divGame.appendChild(li);
             });
