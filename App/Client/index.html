@@ -32,15 +32,16 @@
             color: #feda4a;
             font-family: 'Pathway Gothic One', sans-serif;
             font-style: oblique;
+            padding: 2%;
         }
 
         header>h1{
             filter: drop-shadow( 10px 10px 10px #e2e2e2 );
         }
 
-        #getPeople{
+        .button-custom{
             border: 3px solid white;
-            border-radius: 2%;
+            border-radius: 6%;
             background-color: #c6c6c6;
             filter: drop-shadow( 5px 5px 10px #ffffff );
             color: rgb(246, 246, 246);
@@ -48,12 +49,12 @@
             font-size: small;
             font-family: 'Star Wars', sans-serif;
         }
-        #getPeople:active{
+        .button-custom:active{
             background-color: #656565;
         }
 
         .character-card:hover {
-            box-shadow: 5px 5px 10px rgba(255, 255, 255, 0.5);
+            box-shadow: 5px 5px 10px rgba(255, 255, 255, 0.676);
         }
 
         body {
@@ -78,7 +79,7 @@
     <div class="container mt-4">
         <div class="row">
             <div class="col-12">
-                <button id="getPeople" class="btn">Get People</button>
+                <button id="getPeople" class="btn button-custom">Get People</button>
             </div>
         </div>
         <div class="row mt-3">
@@ -88,16 +89,16 @@
         </div>
         <div class="row mt-3">
             <div class="col-12">
-                <button id="prevPage" class="btn btn-secondary mr-2">Anterior</button>
+                <button id="prevPage" class="btn button-custom mr-2">Anterior</button>
                 <span id="currentPage">Página 1</span>
                 <span id="totalPages"></span>
-                <button id="nextPage" class="btn btn-secondary ml-2">Siguiente</button>
+                <button id="nextPage" class="btn button-custom ml-2">Siguiente</button>
             </div>
         </div>
         <div id="server-info"></div>
         <div class="row mt-3">
             <div class="col-12">
-                <button id="startGame" class="btn btn-success">Start StarWardled</button>
+                <button id="startGame" class="btn button-custom">Start</button>
             </div>
         </div>
         <div class="row mt-3">
@@ -105,7 +106,7 @@
                 <input type="text" id="search" value="" name="check" autocomplete="off" class="form-control">
             </div>
             <div class="col-4">
-                <button id="check" class="btn btn-info">Check</button>
+                <button id="check" class="btn button-custom">Check</button>
             </div>
             <div class="col-6" id="game"></div>
             <div class="col-6" id="random"></div>

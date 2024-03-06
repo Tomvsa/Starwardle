@@ -17,6 +17,8 @@ function startGame(){
         randomCharacter.innerHTML += `<br>Eye Color: ${character.eye_color}`;
         randomCharacter.innerHTML += `<br>Birth Year: ${character.birth_year}`;
         randomCharacter.innerHTML += `<br>Gender: ${character.gender}`;
+        randomCharacter.style.border = '1px solid white';
+        randomCharacter.style.backgroundColor = '#f5f5f59a';
     })
 
     inputGame.addEventListener('input',function(){
