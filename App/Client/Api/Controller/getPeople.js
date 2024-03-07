@@ -11,6 +11,7 @@ nextButton.addEventListener('click', () => changePage(1));
 
 function getCharacters(pageNumber) {
     const xhr = new XMLHttpRequest();
+    const apiUrl = `https://swapi.py4e.com/api/people/?page=${pageNumber}`;
     xhr.onreadystatechange = function () {
         if (xhr.readyState === XMLHttpRequest.DONE) {
             if (xhr.status === 200) {
@@ -35,7 +36,7 @@ function getCharacters(pageNumber) {
                             const miModal = new bootstrap.Modal(document.getElementById('exampleModal'))
                             const modalBody = document.getElementById('modalBody');
                             fetch(`http://localhost:3000/persona/${character.name}`).then(response => {
-                                if (!response.ok) {                 
+                                if (!response.ok) {
                                     modalBody.innerHTML = "No hay información del personaje en el servidor";
                                     miModal.show();
                                 }
@@ -55,7 +56,7 @@ function getCharacters(pageNumber) {
                                     miModal.show();
 
                                 })
-                                // .catch(error => console.error(error));
+                            // .catch(error => console.error(error));
                         }
                     });
                     transfer_data.addEventListener('click', function () {
@@ -127,7 +128,8 @@ function getCharacters(pageNumber) {
             }
         }
     };
-    xhr.open('GET', `https://swapi.dev/api/people/?page=${pageNumber}`);
+
+    xhr.open('GET', apiUrl);
     xhr.send();
 }
 
