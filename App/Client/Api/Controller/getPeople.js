@@ -24,7 +24,7 @@ function getCharacters(pageNumber) {
                     const character = characters[i];
                     const characterDiv = document.createElement('div');
                     characterDiv.classList.add('character-card');
-                    characterDiv.innerHTML = `Name: ${character.name}, <br> Height: ${character.height}, <br> Hair Color: ${character.hair_color}, <br> Skin Color: ${character.skin_color}, <br> Eye Color: ${character.eye_color}, <br> Birth Year: ${character.birth_year}, <br> Gender: ${character.gender} <br>`;
+                    characterDiv.innerHTML = `<p style='color:white'>${character.name}</p> <br> Height: ${character.height}, <br> Hair Color: ${character.hair_color}, <br> Skin Color: ${character.skin_color}, <br> Eye Color: ${character.eye_color}, <br> Birth Year: ${character.birth_year}, <br> Gender: ${character.gender} <br>`;
                     const transfer_data = document.createElement('button');
                     const add_image = document.createElement('input');
                     add_image.type = "file";
