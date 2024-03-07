@@ -77,9 +77,9 @@ function startGame(){
             if (comparisonResult.height && comparisonResult.hair_color && comparisonResult.skin_color &&
                 comparisonResult.eye_color && comparisonResult.birth_year && comparisonResult.gender) {
                 divGame.innerHTML = "¡Felicidades! ¡Has ganado! 🤩🤩";
-                buttonCheck.style.visibility = 'hidden';
+                buttonCheck.disabled = true;
                 const buttonReset = document.createElement('button');
-                buttonReset.classList.add('btn', 'btn-warning');
+                buttonReset.classList.add('btn', 'button-custom');
                 buttonReset.textContent = "Reset";
                 const div = document.getElementsByClassName('col-4')[0];
                 buttonReset.addEventListener('click', function(){
