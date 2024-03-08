@@ -29,7 +29,7 @@ function getCharacters(pageNumber) {
                     const add_image = document.createElement('input');
                     add_image.type = "file";
                     add_image.id = "file";
-                    transfer_data.innerHTML = '<b>transferData</b>';
+                    transfer_data.innerHTML = '<b>transferData</b> <i class="fa-solid fa-upload"></i>';
                     characterDiv.addEventListener('click', function (event) {
                         if (event.target.tagName !== 'BUTTON' && event.target.tagName !== 'INPUT' && event.target.tagName !== 'B') {
                             const server_info = document.getElementById("server-info");

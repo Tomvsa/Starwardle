@@ -11,12 +11,12 @@ function startGame(){
     .then(response => response.json())
     .then(character => {
         randomCharacter.innerHTML = "<b>Adivina el personaje</b>";
-        randomCharacter.innerHTML += `<br>Height: ${character.height}`;
-        randomCharacter.innerHTML += `<br>Hair Color: ${character.hair_color}`;
-        randomCharacter.innerHTML += `<br>Skin Color: ${character.skin_color}`;
-        randomCharacter.innerHTML += `<br>Eye Color: ${character.eye_color}`;
-        randomCharacter.innerHTML += `<br>Birth Year: ${character.birth_year}`;
-        randomCharacter.innerHTML += `<br>Gender: ${character.gender}`;
+        randomCharacter.innerHTML += `<br><i class="fa-solid fa-text-height"></i> Height: ${character.height}`;
+        randomCharacter.innerHTML += `<br><i class="fa-solid fa-palette"></i> Hair Color: ${character.hair_color}`;
+        randomCharacter.innerHTML += `<br><i class="fa-solid fa-hand-dots"></i> Skin Color: ${character.skin_color}`;
+        randomCharacter.innerHTML += `<br><i class="fa-solid fa-eye"></i> Eye Color: ${character.eye_color}`;
+        randomCharacter.innerHTML += `<br><i class="fa-solid fa-cake-candles"></i> Birth Year: ${character.birth_year}`;
+        randomCharacter.innerHTML += `<br><i class="fa-solid fa-venus-mars"></i> Gender: ${character.gender}`;
         randomCharacter.style.border = '1px solid white';
         randomCharacter.style.backgroundColor = '#f5f5f59a';
     })
@@ -67,13 +67,13 @@ function startGame(){
             let birth_year = (comparisonResult.birth_year) ? '✅' : '❌';
             let gender = (comparisonResult.gender) ? '✅' : '❌';
             randomCharacter.innerHTML += `<br>-------------`;
-            randomCharacter.innerHTML += `<br>name: ${name}`;
-            randomCharacter.innerHTML += `<br>height: ${height}`;
-            randomCharacter.innerHTML += `<br>hair_color: ${hair_color}`;
-            randomCharacter.innerHTML += `<br>skin_color: ${skin_color}`;
-            randomCharacter.innerHTML += `<br>eye_color: ${eye_color}`;
-            randomCharacter.innerHTML += `<br>birth_year ${birth_year}`;
-            randomCharacter.innerHTML += `<br>gender ${gender}`;
+            randomCharacter.innerHTML += `<br><i class="fa-solid fa-user"></i> Name: ${name}`;
+            randomCharacter.innerHTML += `<br><i class="fa-solid fa-text-height"></i> Height: ${height}`;
+            randomCharacter.innerHTML += `<br><i class="fa-solid fa-palette"></i> Hair Color: ${hair_color}`;
+            randomCharacter.innerHTML += `<br><i class="fa-solid fa-hand-dots"></i> Skin Color: ${skin_color}`;
+            randomCharacter.innerHTML += `<br><i class="fa-solid fa-eye"></i> Eye Color: ${eye_color}`;
+            randomCharacter.innerHTML += `<br><i class="fa-solid fa-cake-candles"></i> Birth Year ${birth_year}`;
+            randomCharacter.innerHTML += `<br><i class="fa-solid fa-venus-mars"></i> Gender ${gender}`;
             if (comparisonResult.height && comparisonResult.hair_color && comparisonResult.skin_color &&
                 comparisonResult.eye_color && comparisonResult.birth_year && comparisonResult.gender) {
                 divGame.innerHTML = "¡Felicidades! ¡Has ganado! 🤩🤩";
