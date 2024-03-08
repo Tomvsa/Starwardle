@@ -24,13 +24,15 @@ function getCharacters(pageNumber) {
                     const character = characters[i];
                     const characterDiv = document.createElement('div');
                     characterDiv.classList.add('character-card');
-                    characterDiv.innerHTML = `<p style='color:white'>${character.name}</p> <br> Height: ${character.height}, <br> Hair Color: ${character.hair_color}, <br> Skin Color: ${character.skin_color}, <br> Eye Color: ${character.eye_color}, <br> Birth Year: ${character.birth_year}, <br> Gender: ${character.gender} <br>`;
+                    characterDiv.innerHTML = `<h4 style='color:white'>${character.name}</h4> Height: ${character.height}, <br> Hair Color: ${character.hair_color}, <br> Skin Color: ${character.skin_color}, <br> Eye Color: ${character.eye_color}, <br> Birth Year: ${character.birth_year}, <br> Gender: ${character.gender} <br>`;
                     const transfer_data = document.createElement('button');
                     const add_image = document.createElement('input');
                     add_image.type = "file";
                     add_image.id = "file";
                     add_image.style.display = 'none';
                     const label = document.createElement('BUTTON');
+                    label.classList.add('button-api');
+                    transfer_data.classList.add('button-api');
                     label.innerHTML = '<b>Select File<b> <i class="fa-solid fa-file-image"></i>';
                     label.addEventListener('click', function() {
                         add_image.click(); // Simular un clic en el input
