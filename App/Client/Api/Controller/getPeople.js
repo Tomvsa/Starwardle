@@ -29,9 +29,15 @@ function getCharacters(pageNumber) {
                     const add_image = document.createElement('input');
                     add_image.type = "file";
                     add_image.id = "file";
-                    transfer_data.innerHTML = '<b>transferData</b> <i class="fa-solid fa-upload"></i>';
+                    add_image.style.display = 'none';
+                    const label = document.createElement('BUTTON');
+                    label.innerHTML = '<b>Select File<b> <i class="fa-solid fa-file-image"></i>';
+                    label.addEventListener('click', function() {
+                        add_image.click(); // Simular un clic en el input
+                    });
+                    transfer_data.innerHTML = '<b>Transfer Data</b> <i class="fa-solid fa-database"></i>';
                     characterDiv.addEventListener('click', function (event) {
-                        if (event.target.tagName !== 'BUTTON' && event.target.tagName !== 'INPUT' && event.target.tagName !== 'B') {
+                        if (event.target.tagName !== 'BUTTON' && event.target.tagName !== 'INPUT' && event.target.tagName !== 'LABEL' && event.target.tagName !== "B") {
                             const server_info = document.getElementById("server-info");
                             const miModal = new bootstrap.Modal(document.getElementById('exampleModal'))
                             const modalBody = document.getElementById('modalBody');
@@ -119,6 +125,7 @@ function getCharacters(pageNumber) {
                     div.appendChild(characterDiv);
                     characterDiv.appendChild(transfer_data);
                     characterDiv.appendChild(add_image);
+                    characterDiv.appendChild(label);
 
                 }
                 totalPages = Math.ceil(response.count / 10);
